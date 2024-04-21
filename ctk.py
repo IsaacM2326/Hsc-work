@@ -34,4 +34,4 @@ label = ctk.CTkLabel(window,
 label.pack()
 
 
-window.mainloop
+window.mainloop()
