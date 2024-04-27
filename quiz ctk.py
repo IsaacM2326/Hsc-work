@@ -81,3 +81,4 @@ hint_label = ctk.CTkLabel(window, text='', font=('Helvetica', 12))
 hint_label.pack()
 
 window.mainloop()
+
