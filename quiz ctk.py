@@ -5,12 +5,13 @@ from random import randint
 # Set mode
 ctk.set_appearance_mode('dark') 
 ctk.set_default_color_theme('blue')
-# Window 
-window = ctk.CTk()
-window.title('customtkinter app')
-window.geometry('600x400')
+# root
+ 
+root = ctk.CTk()
+root.title('customtkinter app')
+root.geometry('600x400')
 
-entry = ctk.CTkEntry(window, placeholder_text='Enter answer')
+entry = ctk.CTkEntry(root, placeholder_text='Enter answer')
 entry.pack()
 
 biology_questions = [
@@ -59,26 +60,26 @@ def next_question():
     answer_label.configure(text='')
     hint_label.configure(text='')
 
-answer_label = ctk.CTkLabel(window, text='')
+answer_label = ctk.CTkLabel(root, text='')
 answer_label.pack(pady=20)
 
-my_label = ctk.CTkLabel(window, text='', font=('Helvetica',24))
+my_label = ctk.CTkLabel(root, text='', font=('Helvetica',24))
 my_label.pack(pady=40)
 
-enter_button = ctk.CTkButton(window, text='Enter', command=submit)
+enter_button = ctk.CTkButton(root, text='Enter', command=submit)
 enter_button.pack(padx=10, pady=10)
 
-clear_button = ctk.CTkButton(window, text='Clear', command=clear)
+clear_button = ctk.CTkButton(root, text='Clear', command=clear)
 clear_button.pack(pady=15, padx=30)
 
-hint_button = ctk.CTkButton(window, text='Hint', command=hint)
+hint_button = ctk.CTkButton(root, text='Hint', command=hint)
 hint_button.pack(pady=15, padx=30)
 
-next_button = ctk.CTkButton(window, text='Next Question', command=next_question)
+next_button = ctk.CTkButton(root, text='Next Question', command=next_question)
 next_button.pack(pady=15, padx=30)
 
-hint_label = ctk.CTkLabel(window, text='', font=('Helvetica', 12))
+hint_label = ctk.CTkLabel(root, text='', font=('Helvetica', 12))
 hint_label.pack()
 
-window.mainloop()
+root.mainloop()
 

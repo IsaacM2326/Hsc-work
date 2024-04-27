@@ -1,0 +1,24 @@
+ #, HSC-assignment
+import customtkinter as ctk 
+root=ctk.CTk()
+root.minsize(height=500, width = 800)
+def tab1():
+    def tab2():
+        label1.destroy()
+        button1.destroy
+        label2= ctk.CTkLabel(root, text='first tab')
+        label2.pack()
+        def back():
+            label1.destroy()
+            button1.destroy
+            tab1()
+            
+        button2= ctk.CTkButton(root, text='Back ',command= back )
+        button2.pack()
+
+    label1= ctk.CTkLabel(root, text='first tab')
+    label1.pack()
+
+    button1= ctk.CTkButton(root, text='Next ',command=tab2)
+    button1.pack()
+    root.mainloop()
