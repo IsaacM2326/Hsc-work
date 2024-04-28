@@ -1,0 +1,64 @@
+import customtkinter as ctk
+
+root = ctk.CTk()
+root.theme = {'fg_color': '#FF0', 'text_color': '#000'}
+
+themes = [
+    {'bg': 'black', 'fg': 'white', 'text': 'Light Theme'},
+    {'bg': 'white', 'fg': 'black', 'text': 'Dark Theme'},
+    {'bg': '#333', 'fg': 'white', 'text': 'Custom Theme 1'},
+    {'bg': '#FF5733', 'fg': 'black', 'text': 'Custom Theme 2'},
+    {'bg': '#4287f5', 'fg': 'white', 'text': 'Custom Theme 3'}
+]
+
+current_theme_index = 0
+
+def switch_theme():
+    global current_theme_index
+    current_theme_index = (current_theme_index + 1) % len(themes)
+    theme = themes[current_theme_index]
+    root.configure(bg=theme['bg'])
+    root.configure(fg_color=theme['fg'], text=theme['text'])
+root.minsize(height=300, width=500)
+
+#=====change font size========
+current_font_size_index = 0
+
+font_sizes = [12, 16, 20, 24]
+
+def increase_font_size():
+    global current_font_size_index
+    current_font_size_index = (current_font_size_index + 1) % len(font_sizes)
+    update_fonts()
+
+def update_fonts():
+    selected_font_size = font_sizes[current_font_size_index]
+    for button in buttons:
+        button.configure(font=('Helvetica', selected_font_size))
+    for label in labels:
+        label.configure(font=('Helvetica', selected_font_size))
+
+def create_widgets():
+    global buttons, labels
+
+    frame = ctk.CTkFrame(root)
+    frame.pack(padx=20, pady=20)
+
+    label = ctk.CTkLabel(frame, text="Change Setings")
+    label.pack(pady=10)
+    labels = [label]
+
+    button1 = ctk.CTkButton(root, text='Switch Language ', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
+    button1.pack(pady=5)   
+    button2 = ctk.CTkButton(root, text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
+    button2.pack(pady=5) 
+    font_button = ctk.CTkButton(root, text="Increase Font Size", command=increase_font_size)
+    font_button.pack(pady=5)
+    
+    buttons = [button1, button2, font_button]
+
+   
+
+create_widgets()
+
+root.mainloop()

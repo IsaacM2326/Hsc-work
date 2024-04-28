@@ -1,0 +1,103 @@
+ #, HSC-assignment
+import customtkinter as ctk 
+from random import randint
+
+root=ctk.CTk()
+root.minsize(height=500, width = 800)
+
+
+def tab1():
+    def tab2():
+        label1.destroy()
+        button1.destroy()
+        label2= ctk.CTkLabel(root, text='second tab')
+        label2.pack()
+        def back():
+            label2.destroy()
+            button2.destroy()
+            tab1()
+            
+        button2= ctk.CTkButton(root, text='Back ',command= back ,hover_color='grey')
+        button2.pack(pady=60)
+
+    label1= ctk.CTkLabel(root, text='first tab')
+    label1.pack(pady=50)
+
+    
+
+    button1= ctk.CTkButton(root, text='Next ',command=tab2,hover_color='grey')
+    button1.pack(pady=60)
+tab1()
+entry = ctk.CTkEntry(root, placeholder_text='Enter answer')
+entry.pack()
+
+biology_questions = [
+    ("What is the basic unit of life?", "Cell"),
+    ("What is the powerhouse of the cell?", "Mitochondria"),
+    ("What is the process by which plants make their own food called?", "Photosynthesis"),
+    ("What are the tiny blood vessels where gas exchange occurs in the lungs called?", "Capillaries"),
+    ("Which organ in the human body produces insulin?", "Pancreas"),
+    ("What is the function of white blood cells?", "Fight infections/Immune response"),
+    ("What is the process of breaking down food into simpler substances called?", "Digestion"),
+    ("What is the longest bone in the human body?", "Femur"),
+    ("What is the function of the cerebellum?", "Coordination of movement/Balance"),
+    ("What is the main function of red blood cells?", "Transport oxygen (to tissues)"),
+    ("What is the process of cell division called?", "Mitosis"),
+    ("What are the main components of the central nervous system?", "Brain and Spinal Cord")
+]
+count = len(biology_questions)
+current_question_index = -1  # Initialize to an invalid index
+
+def clear():
+    entry.delete(0, ctk.END)
+    answer_label.configure(text='')
+
+def submit():
+    if current_question_index >= 0 and current_question_index < count:
+        answer = entry.get().strip().capitalize()
+        correct_answer = biology_questions[current_question_index][1].capitalize()
+        if answer == correct_answer:
+            answer_label.configure(text='Correct answer!')
+        else:
+            answer_label.configure(text=f'Incorrect answer! The correct answer is {correct_answer}')
+    else:
+        answer_label.configure(text='No question to answer')
+
+def hint():
+    global current_question_index
+    if current_question_index >= 0 and current_question_index < count:
+        hint_label.configure(text=f'Hint: {biology_questions[current_question_index][1]}')
+    else:
+        hint_label.configure(text='No question to get a hint')
+
+def next_question():
+    global current_question_index
+    current_question_index = randint(0, count - 1)
+    my_label.configure(text=biology_questions[current_question_index][0])
+    answer_label.configure(text='')
+    hint_label.configure(text='')
+
+answer_label = ctk.CTkLabel(root, text='')
+answer_label.pack(pady=20)
+
+my_label = ctk.CTkLabel(root, text='', font=('Helvetica',24))
+my_label.pack(pady=40)
+
+enter_button = ctk.CTkButton(root, text='Enter', command=submit)
+enter_button.pack(padx=10, pady=10)
+
+clear_button = ctk.CTkButton(root, text='Clear', command=clear)
+clear_button.pack(pady=15, padx=30)
+
+hint_button = ctk.CTkButton(root, text='Hint', command=hint)
+hint_button.pack(pady=15, padx=30)
+
+next_button = ctk.CTkButton(root, text='Next Question', command=next_question)
+next_button.pack(pady=15, padx=30)
+
+
+
+hint_label = ctk.CTkLabel(root, text='', font=('Helvetica', 12))
+hint_label.pack()
+
+root.mainloop()
