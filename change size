@@ -3,6 +3,18 @@ import customtkinter as ctk
 root = ctk.CTk()
 root.theme = {'fg_color': '#FF0', 'text_color': '#000'}
 
+languages = ['Spanish', 'German', 'Hindi', 'Arabic']
+current_language_index = 0
+#===============change langauge =======================#
+
+
+
+
+label= ctk.CTkLabel(root, text= 'hello')
+
+languages = ['Spanish', 'German', 'Hindi', 'Arabic']
+current_language_index = 0
+
 themes = [
     {'bg': 'black', 'fg': 'white', 'text': 'Light Theme'},
     {'bg': 'white', 'fg': 'black', 'text': 'Dark Theme'},
@@ -38,6 +50,11 @@ def update_fonts():
     for label in labels:
         label.configure(font=('Helvetica', selected_font_size))
 
+
+label= ctk.CTkLabel(root, text= 'hello')
+
+languages = ['Spanish', 'German', 'Hindi', 'Arabic']
+current_language_index = 0
 def create_widgets():
     global buttons, labels
 
@@ -48,14 +65,14 @@ def create_widgets():
     label.pack(pady=10)
     labels = [label]
 
-    button1 = ctk.CTkButton(root, text='Switch Language ', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
-    button1.pack(pady=5)   
+    change_button = ctk.CTkButton(root, text="Change Language",)
+    change_button.pack(pady=5)
     button2 = ctk.CTkButton(root, text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
     button2.pack(pady=5) 
     font_button = ctk.CTkButton(root, text="Increase Font Size", command=increase_font_size)
     font_button.pack(pady=5)
     
-    buttons = [button1, button2, font_button]
+    buttons = [change_button , button2, font_button]
 
    
 
