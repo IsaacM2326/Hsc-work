@@ -1,0 +1,78 @@
+ #, HSC-assignment
+import customtkinter as ctk 
+root=ctk.CTk()
+root.minsize(height=500, width = 800)
+current_theme_index = 0
+font_index = 0
+current_font_size_index = 0
+
+font_sizes = [10, 12, 14]
+
+
+themes = [
+    {'bg': 'black', 'fg': 'white', 'text': 'Light Theme'},
+    {'bg': 'white', 'fg': 'black', 'text': 'Dark Theme'},
+    {'bg': 'green', 'fg': 'blue', 'text': 'Custom Theme 1'},
+    {'bg': '#FF5733', 'fg': 'black', 'text': 'Custom Theme 2'},
+    {'bg': '#4287f5', 'fg': 'white', 'text': 'Custom Theme 3'}]
+
+fonts =[{'font':('Helvetica','24')},{'font':('Helvetica','16')},{'font':('Helvetica','30')} ]
+
+
+def switch_theme():
+        global current_theme_index
+        current_theme_index = (current_theme_index + 1) % len(themes)
+        theme = themes[current_theme_index]
+        root.configure(bg=theme['bg'])
+        root.configure(fg_color=theme['fg'], text=theme['text'])
+
+
+
+
+     
+     
+
+   
+    
+
+
+def tab1():
+    def tab2():
+        label1.destroy()
+        button1.destroy()
+        label2= ctk.CTkLabel(root, text='second tab')
+        label2.pack()
+        def back():
+            label2.destroy()
+            button2.destroy() 
+            button3.destroy()
+        def create_widgets():
+             global buttons, labels
+
+             ctk.CTkFrame = ctk.CTkFrame(root)
+             ctk.CTkFrame.pack(padx=20, pady=20)
+        
+             tab1()
+        
+        
+        
+         
+           
+        
+        button2 = ctk.CTkButton(root, text='change theme', fg_color='white', text_color='grey', command=switch_theme)
+        button2.pack(pady=80)
+
+        button3 = ctk.CTkButton(root, text='Back', fg_color='white', text_color='grey',  command=back)
+        button3.pack(pady=80)
+        
+        
+
+label1= ctk.CTkLabel(root, text='first tab', fg_color='white', text_color='grey', )
+ label1.pack()
+
+button1 = ctk.CTkButton(root, text='Settings', fg_color='white', text_color='grey',  command=tab2)
+button1.pack(pady=80)
+   
+tab1()
+
+root.mainloop()
