@@ -1,18 +1,51 @@
 import customtkinter as ctk
+from customtkinter import*
 from googletrans import Translator
 from random import randint
 
 root = ctk.CTk()
-root.geometry('500x800')
+root.geometry('800x800')
+root.minsize(300, 300)
 
-current_theme_index = 0
-current_lang_index = 0
-languages = ['en', 'es', 'de', 'hi', 'ar']  # Language codes: English, Spanish, German, Hindi, Arabic
-translator = Translator()
+
+root.title('Quiz ')
+
 
 settings_frame= ctk.CTkFrame (root,width =500, height=800, )
 settings_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
-settings_frame.pack(side='left',fill='x')
+settings_frame.pack(fill="both", expand=True)
+
+page_4= ctk.CTkFrame(settings_frame )
+def resize():
+    w=width_entry.get()
+    h=height_entry.get()
+    root.geometry(f'{w}x{h}')
+
+width_label = ctk.CTkLabel(page_4,text='Width')
+width_label.pack(pady=20)
+width_entry=ctk. CTkEntry(page_4)
+width_entry.pack()
+
+height_label = ctk.CTkLabel(page_4,text='Height')
+height_label.pack(pady=20)
+
+height_entry=ctk.CTkEntry(page_4)
+height_entry.pack()
+
+my_button = ctk.CTkButton(page_4, text='Resize', command=resize )
+my_button.pack(pady=20)
+
+
+page_4.pack
+
+
+
+
+
+current_theme_index = 0
+current_lang_index = 0
+languages = ['en', 'es', 'de', 'hi','' ]  # Language codes: English, Spanish, German, Hindi, Arabic
+translator = Translator()
 
 
 
@@ -55,7 +88,7 @@ current_question_index = 1
 
 # Widgets for page 2
 entry2 = ctk.CTkEntry(page_2, width=30)
-entry2.pack(pady=10)
+entry2.pack(pady=35)
 
 answer_label = ctk.CTkLabel(page_2, text='', font=('Helvetica', 12))
 answer_label.pack(pady=20)
@@ -70,21 +103,23 @@ hint_label.pack()
 
 
 def submit():
-   if 0 <= current_question_index < count2:
-        answer = entry2.get().strip().capitalize()
+    if 0 <= current_question_index < count2:
+        answer = entry2.get().strip().capitalize()  # Get and clean user input
         correct_answer = physics_questions[current_question_index][1].capitalize()
-        if answer == correct_answer:
+
+        # Case-insensitive comparison (optional)
+        if answer.lower() == correct_answer.lower():
             answer_label.configure(text='Correct answer!')
         else:
             answer_label.configure(text=f'Incorrect answer! The correct answer is {correct_answer}')
-   else:
-        answer_label.configure(text='No question to answer')
+    else:
+        answer_label.configure(text='No question to answer!')
 # start the loop from zero for if condition 
 
 
 def hint1():
-    if 0 <= current_question_index < count2_hint:
-        hint_label.configure(text=f'Hint: {physics_hints[current_question_index]}')
+    if 0 <= current_question_index < count2:
+        hint_label.configure(text=f'Hint: {physics_questions[current_question_index][2]}')
     else:
         hint_label.configure(text='No question to get a hint')
     
@@ -121,7 +156,7 @@ page_3= ctk.CTkFrame(settings_frame )
 
 
 entry = ctk.CTkEntry(page_3, placeholder_text='Enter answer')
-entry.pack()
+entry.pack(pady=35)
 
 biology_questions = [
     ("What is the basic unit of life?", "Cell",'C--l'),
@@ -143,14 +178,16 @@ current_question_index = 1
 
 def submit2():
     if 0 <= current_question_index < count1:
-        answer = entry.get().strip().capitalize()
+        answer = entry.get().strip().capitalize()  # Get and clean user input
         correct_answer = biology_questions[current_question_index][1].capitalize()
-        if answer == correct_answer:
-            answer_label.configure(text='Correct answer!')
+
+        # Case-insensitive comparison (optional)
+        if answer.lower() == correct_answer.lower():
+            answer_label2.configure(text='Correct answer!')
         else:
             answer_label2.configure(text=f'Incorrect answer! The correct answer is {correct_answer}')
     else:
-        answer_label2.configure(text='No question to answer')
+        answer_label2.configure(text='No question to answer!')
 
 def hint2():
     if 0 <= current_question_index < count1:
@@ -159,6 +196,8 @@ def hint2():
         hint_label.configure(text='No question to get a hint')
 
 def next_question():
+    entry.delete(0, ctk.END)  # Clear the entry widget's content
+    global current_question_index
     global current_question_index
     current_question_index = randint(0, count1 - 1)
     my_label.configure(text=biology_questions[current_question_index][0])
@@ -194,7 +233,7 @@ buttons2 = [next_button ,  enter_button, hint_button]
 
 settings_frame.pack(fill=ctk.BOTH, expand=True)
 
-pages=[page_1, page_2, page_3]
+pages=[page_1, page_2, page_3, page_4]
 count=0
 
 def move_next_page():
@@ -265,7 +304,6 @@ def switch_theme():
 
 
     
-root.minsize(height=300, width=500)
 
 #=====change font size========
 current_font_size_index = 0
@@ -325,12 +363,12 @@ def create_widgets():
 
     global buttons
     change_button = ctk.CTkButton(Side_frame, text="Change Language", command=toggle_language)
-    change_button.pack(pady=5, padx=12)
+    change_button.grid(row=2, column=2)
     button2 = ctk.CTkButton(Side_frame,  text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
-    button2.pack(pady=5, padx=6) 
+    button2.grid(row=2, column=1)
     
     font_button = ctk.CTkButton( Side_frame, text="Increase Font Size", command=increase_font_size)
-    font_button.pack(pady=5,padx=20)
+    font_button.grid(row=2, column=0)
     
 
     buttons = [change_button, button2, font_button]
@@ -339,7 +377,7 @@ def create_widgets():
 
 create_widgets()
 
-Side_frame.pack(side=ctk.LEFT,pady=5, padx=20)
+Side_frame.pack()
 
 
 root.mainloop()
