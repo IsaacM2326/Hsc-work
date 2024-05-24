@@ -5,38 +5,50 @@ from random import randint
 
 root = ctk.CTk()
 root.geometry('800x800')
-root.minsize(300, 300)
-
+root.minsize(600, 600)
+root.state('zoomed')
 
 root.title('Quiz ')
 
 
-settings_frame= ctk.CTkFrame (root,width =500, height=800, )
+settings_frame= ctk.CTkFrame (root,width =800, height=800, )
 settings_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
-settings_frame.pack(fill="both", expand=True)
+settings_frame.place(rely=0, relx=0)
 
 page_4= ctk.CTkFrame(settings_frame )
-def resize():
-    w=width_entry.get()
-    h=height_entry.get()
+
+def resize_and_open_page():
+    
+    for p in pages:
+        p.pack_forget()
+
+    page_4.pack(pady=100)
+
+   
+    w = width_entry.get()
+    h = height_entry.get()
     root.geometry(f'{w}x{h}')
 
+
+my_button = ctk.CTkButton(page_4, text='Resize', command=resize_and_open_page)
+
 width_label = ctk.CTkLabel(page_4,text='Width')
-width_label.pack(pady=20)
+width_label.place(relx=.5,rely=.1)
 width_entry=ctk. CTkEntry(page_4)
-width_entry.pack()
+width_entry.place(relx=.2,rely=.3)
 
 height_label = ctk.CTkLabel(page_4,text='Height')
-height_label.pack(pady=20)
+height_label.place(relx=.5,rely=.5)
 
 height_entry=ctk.CTkEntry(page_4)
-height_entry.pack()
+height_entry.place(relx=.2,rely=.7)
 
-my_button = ctk.CTkButton(page_4, text='Resize', command=resize )
-my_button.pack(pady=20)
+warning_label= ctk.CTkLabel(page_4,text='Minimum w= 800, h=600' )
+warning_label.place(relx=.2, rely=.9)
 
 
-page_4.pack
+
+page_4.place(relx=.5,rely=.5)
 
 
 
@@ -49,14 +61,13 @@ translator = Translator()
 
 
 
-page_1= ctk.CTkFrame(settings_frame )
-label_main=ctk.CTkLabel(page_1,text='Welcome , press ''Next Quiz''to Start')
+page_1= ctk.CTkFrame(root)
+label_main=ctk.CTkLabel(page_1,text='Press Next Quiz to debug ')
 label_main.pack()
-page_1_lb = ctk.CTkLabel(settings_frame, text ='MAin page', font=('Bold',20))
-page_1_lb.pack()
+page_1.place(relx=0.5,rely=0)
 
 #=========++=================PAGE @ SETUP ==========================================================================================================
-page_2= ctk.CTkFrame(settings_frame )
+page_2= ctk.CTkFrame(settings_frame , width =1200, height =800)
 
 
 
@@ -68,7 +79,7 @@ physics_questions = [
     ("What is the push or pull on an object that can cause it to accelerate called?", "Force",),
     ("What is the unit of measure for force?", "Newton",'starts with N'),
     ("What is the sum of all forces acting on an object called?", "Net force", 'N--, F----'),
-    ("In a tug of war, when one team is pulling with a force of 100 N and the other 80 N, what is the net force?", " 20 N",'--N'),
+    ("What is the unit of measure for force?", "Newton",'starts with N'),
     ("Newton's First Law of Motion is also called:", "Law of Inertia"),
     ("Newton's first Law of Motion states that if there is no net force acting on an object it will:", " remain at rest",'re---- a- re--'),
     (" In the equation F = ma, what does m represent?", "Mass", 'M---'),
@@ -87,17 +98,17 @@ count2_hint = len(physics_hints)
 current_question_index = 1
 
 # Widgets for page 2
-entry2 = ctk.CTkEntry(page_2, width=30)
-entry2.pack(pady=35)
+entry2 = ctk.CTkEntry(page_2, width=300)
+entry2.place (relx=.45,rely=.3)
 
 answer_label = ctk.CTkLabel(page_2, text='', font=('Helvetica', 12))
-answer_label.pack(pady=20)
+answer_label.place (relx=.5,rely=.1)
 
 my_label1 = ctk.CTkLabel(page_2, text='Question', font=('Helvetica', 24))
-my_label1.pack(pady=40)
+my_label1.place (relx=.2,rely=.2)
 
-hint_label = ctk.CTkLabel(page_2, text='', font=('Helvetica', 12))
-hint_label.pack()
+hint_label1 = ctk.CTkLabel(page_2, text='', font=('Helvetica', 12))
+hint_label1.place (relx=.5,rely=.25)
 
 
 
@@ -119,9 +130,9 @@ def submit():
 
 def hint1():
     if 0 <= current_question_index < count2:
-        hint_label.configure(text=f'Hint: {physics_questions[current_question_index][2]}')
+        hint_label1.configure(text=f'Hint: {physics_questions[current_question_index][2]}')
     else:
-        hint_label.configure(text='No question to get a hint')
+        hint_label1.configure(text='No question to get a hint')
     
 
 
@@ -136,13 +147,13 @@ def next_question():
 
 # Buttons for page 2
 enter_button = ctk.CTkButton(page_2, text='Enter', command=submit)
-enter_button.pack(pady=10)
+enter_button.place (relx=.5,rely=.35)
 
 hint_button = ctk.CTkButton(page_2, text='Hint', command=hint1)
-hint_button.pack(pady=15)
+hint_button.place (relx=.5,rely=.4)
 
 next_button = ctk.CTkButton(page_2, text='Next Question', command=next_question)
-next_button.pack(pady=15)
+next_button.place(relx=.5,rely=.45)
 
 
 
@@ -151,12 +162,12 @@ buttons1 = [next_button ,  enter_button, hint_button]
 
 
 #==========================PAGE 3======================================================================================
-page_3= ctk.CTkFrame(settings_frame )
+page_3= ctk.CTkFrame(settings_frame ,width =1500, height =800)
 
 
 
-entry = ctk.CTkEntry(page_3, placeholder_text='Enter answer')
-entry.pack(pady=35)
+entry = ctk.CTkEntry(page_3, placeholder_text='Enter answer', width=300)
+entry.place (relx=.45,rely=.3)
 
 biology_questions = [
     ("What is the basic unit of life?", "Cell",'C--l'),
@@ -206,24 +217,26 @@ def next_question():
     
 
 answer_label2 = ctk.CTkLabel(page_3, text='Biology quiz ')
-answer_label2.pack(pady=20)
+answer_label2.place (relx=.4,rely=.1)
 
 my_label = ctk.CTkLabel(page_3, text='', font=('Helvetica',24))
-my_label.pack(pady=40)
+my_label.place(relx=.35,rely=.2)
+
 
 enter_button = ctk.CTkButton(page_3, text='Enter', command=submit2)
-enter_button.pack(padx=10, pady=10)
+enter_button.place (relx=.5,rely=.35)
 
 
 
 hint_button = ctk.CTkButton(page_3, text='Hint', command=hint2)
-hint_button.pack(pady=15, padx=30)
+hint_button.place (relx=.5,rely=.4)
 
 next_button = ctk.CTkButton(page_3, text='Next Question', command=next_question)
-next_button.pack(pady=15, padx=30)
+next_button.place(relx=.5,rely=.45)
+
 
 hint_label = ctk.CTkLabel(page_3, text='', font=('Helvetica', 12))
-hint_label.pack()
+hint_label.place (relx=.5,rely=.25)
 
 
 buttons2 = [next_button ,  enter_button, hint_button]
@@ -231,7 +244,7 @@ buttons2 = [next_button ,  enter_button, hint_button]
 
 #=====================================PAGE  3  END ========================================================================================================================
 
-settings_frame.pack(fill=ctk.BOTH, expand=True)
+
 
 pages=[page_1, page_2, page_3, page_4]
 count=0
@@ -244,7 +257,7 @@ def move_next_page():
 
         count += 1
         page=pages[count]
-        page.pack(pady=100)
+        page.pack(padx=50, pady=100)
 
 def back_next_page():
     global count 
@@ -254,7 +267,7 @@ def back_next_page():
 
         count -= 1
         page=pages[count]
-        page.pack(pady=100)
+        page.pack(padx=50, pady=100)
 
 
 bottom_frame= ctk.CTkFrame(root)
@@ -265,9 +278,9 @@ back_btn.pack(side=ctk.LEFT, padx=5, pady=10)
 next_btn= ctk.CTkButton(bottom_frame, text='Next Quiz ', font=('Helvetica', 12),width=8,command=move_next_page )
 next_btn.pack(side=ctk.BOTTOM, padx=10,pady=10)
 
+buttons3= [next_btn,back_btn]
 
-
-bottom_frame.pack(side=ctk.BOTTOM,pady=10)
+bottom_frame.place(rely=.95, relx=0.45)
 #===========================================================Side   Page   ===================================================================
 Side_frame= ctk.CTkFrame(root)
 
@@ -284,11 +297,12 @@ root.theme = {'fg_color': '#FF0', 'text_color': '#000'}
 
 
 themes = [
-    {'bg': 'black', 'fg': 'white', 'text': 'Light Theme'},
-    {'bg': 'white', 'fg': 'black', 'text': 'Dark Theme'},
-    {'bg': 'red', 'fg': 'blue', 'text': 'eyestrain'},
-    {'bg': 'blue', 'fg': 'blue', 'text': 'Cool 1 '},
-    {'bg': 'blue', 'fg': 'blue', 'text': 'easy on the eyes '}
+    {'bg': 'black', 'fg': 'black', 'text': 'Dark Theme'},
+    {'bg': 'silver', 'fg': 'silver', 'text': 'Dark Theme'},
+    {'bg': 'lightblue', 'fg': 'lightblue', 'text': 'eyestrain'},
+    {'bg': 'grey', 'fg': 'grey', 'text': 'Cool 1 '},
+    {'bg': 'orange', 'fg': 'orange', 'text': 'easy on the eyes '}
+    
 ]
 
 
@@ -297,12 +311,14 @@ def switch_theme():
     current_theme_index = (current_theme_index + 1)
     current_theme_index = (current_theme_index + 1) % len(themes)
     theme = themes[current_theme_index]
-    settings_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     page_1.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    page_2.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    page_3.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    page_4.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    settings_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    bottom_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     root.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     Side_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-
-
     
 
 #=====change font size========
@@ -317,13 +333,31 @@ def increase_font_size():
 
 def update_fonts():
     selected_font_size = font_sizes[current_font_size_index]
+    
+
+    my_label.configure(font=('Helvetica', selected_font_size))
+    my_label1.configure(font=('Helvetica', selected_font_size))
+    answer_label.configure(font=('Helvetica', selected_font_size))
+    hint_label.configure(font=('Helvetica', selected_font_size))
+    
+    
+    label_main.configure(font=('Helvetica', selected_font_size))
+  
+    
+   
     for button in buttons2:
         button.configure(font=('Helvetica', selected_font_size))
     for button in buttons1:
         button.configure(font=('Helvetica', selected_font_size))
     for button in buttons:
         button.configure(font=('Helvetica', selected_font_size))
-    page_1_lb.configure(font=('Helvetica',selected_font_size))
+    for button in buttons3:
+        button.configure(font=('Helvetica', selected_font_size))
+
+    answer_label2.configure(font=('Helvetica', selected_font_size))
+
+    entry.configure(font=('Helvetica', selected_font_size))
+    entry2.configure(font=('Helvetica', selected_font_size))
     
 def toggle_language():
     global current_lang_index
@@ -333,8 +367,7 @@ def toggle_language():
 def update_language():
     lang_type = languages[current_lang_index]
     # Translate the text of labels and buttons
-    label_main.configure(text=translator.translate('Welcome, press "Next Quiz" to Start', dest=lang_type).text)
-    page_1_lb.configure(text=translator.translate('Main page', dest=lang_type).text)
+    label_main.configure(text=translator.translate('Press Next Quiz to debug', dest=lang_type).text)
     my_label1.configure(text=translator.translate('Question', dest=lang_type).text)
     answer_label.configure(text=translator.translate('Biology quiz', dest=lang_type).text)
     answer_label.configure(text=translator.translate('Biology quiz', dest=lang_type).text)
@@ -354,7 +387,6 @@ def update_language():
 
 
 
-
 def create_widgets():
     global buttons, labels
 
@@ -370,6 +402,8 @@ def create_widgets():
     font_button = ctk.CTkButton( Side_frame, text="Increase Font Size", command=increase_font_size)
     font_button.grid(row=2, column=0)
     
+    font_button = ctk.CTkButton( Side_frame, text="Resize ", command=resize_and_open_page)
+    font_button.grid(row=2, column=3)
 
     buttons = [change_button, button2, font_button]
 
@@ -377,7 +411,7 @@ def create_widgets():
 
 create_widgets()
 
-Side_frame.pack()
+Side_frame.place(rely=.9, relx=0.3)
 
 
 root.mainloop()
