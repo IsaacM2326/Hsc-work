@@ -5,17 +5,18 @@ from random import randint
 
 root = ctk.CTk()
 root.geometry('800x800')
-root.minsize(600, 600)
+root.minsize(800, 800)
 root.state('zoomed')
 
 root.title('Quiz ')
 
 
-settings_frame= ctk.CTkFrame (root,width =800, height=800, )
-settings_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
-settings_frame.place(rely=0, relx=0)
+main_frame= ctk.CTkFrame (root,width =800, height=800, )
+main_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
+main_frame.place(rely=0, relx=0)
 
-page_4= ctk.CTkFrame(settings_frame )
+
+
 
 def resize_and_open_page():
     
@@ -30,44 +31,23 @@ def resize_and_open_page():
     root.geometry(f'{w}x{h}')
 
 
-my_button = ctk.CTkButton(page_4, text='Resize', command=resize_and_open_page)
-
-width_label = ctk.CTkLabel(page_4,text='Width')
-width_label.place(relx=.5,rely=.1)
-width_entry=ctk. CTkEntry(page_4)
-width_entry.place(relx=.2,rely=.3)
-
-height_label = ctk.CTkLabel(page_4,text='Height')
-height_label.place(relx=.5,rely=.5)
-
-height_entry=ctk.CTkEntry(page_4)
-height_entry.place(relx=.2,rely=.7)
-
-warning_label= ctk.CTkLabel(page_4,text='Minimum w= 800, h=600' )
-warning_label.place(relx=.2, rely=.9)
-
-
-
-page_4.place(relx=.5,rely=.5)
-
-
 
 
 
 current_theme_index = 0
 current_lang_index = 0
-languages = ['en', 'es', 'de', 'hi','' ]  # Language codes: English, Spanish, German, Hindi, Arabic
+languages = ['en', 'es', 'de', 'hi','ar' ]  # Language codes: English, Spanish, German, Hindi, Arabic
 translator = Translator()
 
 
 
-page_1= ctk.CTkFrame(root)
-label_main=ctk.CTkLabel(page_1,text='Press Next Quiz to debug ')
+start_page= ctk.CTkFrame(root)
+label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to debug ')
 label_main.pack()
-page_1.place(relx=0.5,rely=0)
+start_page.place(relx=0.5,rely=0)
 
 #=========++=================PAGE @ SETUP ==========================================================================================================
-page_2= ctk.CTkFrame(settings_frame , width =1200, height =800)
+physics_page= ctk.CTkFrame(main_frame , width =1200, height =800)
 
 
 
@@ -98,16 +78,16 @@ count2_hint = len(physics_hints)
 current_question_index = 1
 
 # Widgets for page 2
-entry2 = ctk.CTkEntry(page_2, width=300)
-entry2.place (relx=.45,rely=.3)
+physics_entry = ctk.CTkEntry(physics_page, width=300)
+physics_entry.place (relx=.45,rely=.3)
 
-answer_label = ctk.CTkLabel(page_2, text='', font=('Helvetica', 12))
+answer_label = ctk.CTkLabel(physics_page, text='', font=('Helvetica', 12))
 answer_label.place (relx=.5,rely=.1)
 
-my_label1 = ctk.CTkLabel(page_2, text='Question', font=('Helvetica', 24))
+my_label1 = ctk.CTkLabel(physics_page, text='Question', font=('Helvetica', 24))
 my_label1.place (relx=.2,rely=.2)
 
-hint_label1 = ctk.CTkLabel(page_2, text='', font=('Helvetica', 12))
+hint_label1 = ctk.CTkLabel(physics_page, text='', font=('Helvetica', 12))
 hint_label1.place (relx=.5,rely=.25)
 
 
@@ -115,7 +95,7 @@ hint_label1.place (relx=.5,rely=.25)
 
 def submit():
     if 0 <= current_question_index < count2:
-        answer = entry2.get().strip().capitalize()  # Get and clean user input
+        answer = physics_entry.get().strip().capitalize()  # Get and clean user input
         correct_answer = physics_questions[current_question_index][1].capitalize()
 
         # Case-insensitive comparison (optional)
@@ -143,16 +123,16 @@ def next_question():
     my_label1.configure(text=physics_questions[current_question_index][0])
     answer_label.configure(text='')
     hint_label.configure(text='')
-    entry2.delete(0, ctk.END)
+    physics_entry.delete(0, ctk.END)
 
 # Buttons for page 2
-enter_button = ctk.CTkButton(page_2, text='Enter', command=submit)
+enter_button = ctk.CTkButton(physics_page, text='Enter', command=submit)
 enter_button.place (relx=.5,rely=.35)
 
-hint_button = ctk.CTkButton(page_2, text='Hint', command=hint1)
+hint_button = ctk.CTkButton(physics_page, text='Hint', command=hint1)
 hint_button.place (relx=.5,rely=.4)
 
-next_button = ctk.CTkButton(page_2, text='Next Question', command=next_question)
+next_button = ctk.CTkButton(physics_page, text='Next Question', command=next_question)
 next_button.place(relx=.5,rely=.45)
 
 
@@ -162,12 +142,12 @@ buttons1 = [next_button ,  enter_button, hint_button]
 
 
 #==========================PAGE 3======================================================================================
-page_3= ctk.CTkFrame(settings_frame ,width =1500, height =800)
+biology_page= ctk.CTkFrame(main_frame ,width =1500, height =800)
 
 
 
-entry = ctk.CTkEntry(page_3, placeholder_text='Enter answer', width=300)
-entry.place (relx=.45,rely=.3)
+biology_entry = ctk.CTkEntry(biology_page, placeholder_text='Enter answer', width=300)
+biology_entry.place(relx=.45,rely=.3)
 
 biology_questions = [
     ("What is the basic unit of life?", "Cell",'C--l'),
@@ -186,10 +166,10 @@ biology_questions = [
 count1 = len(biology_questions)
 current_question_index = 1
 
-
+#======================defining quiz commands =============================================================================
 def submit2():
     if 0 <= current_question_index < count1:
-        answer = entry.get().strip().capitalize()  # Get and clean user input
+        answer = biology_entry.get().strip().capitalize()  # Get and clean user input
         correct_answer = biology_questions[current_question_index][1].capitalize()
 
         # Case-insensitive comparison (optional)
@@ -207,35 +187,36 @@ def hint2():
         hint_label.configure(text='No question to get a hint')
 
 def next_question():
-    entry.delete(0, ctk.END)  # Clear the entry widget's content
+    biology_entry.delete(0, ctk.END)  # Clear the entry widget's content
     global current_question_index
     global current_question_index
     current_question_index = randint(0, count1 - 1)
     my_label.configure(text=biology_questions[current_question_index][0])
     answer_label.configure(text='')
     hint_label.configure(text='')
-    
 
-answer_label2 = ctk.CTkLabel(page_3, text='Biology quiz ')
+#======================defining quiz commands ======================================   
+
+answer_label2 = ctk.CTkLabel(biology_page, text='Biology quiz ')
 answer_label2.place (relx=.4,rely=.1)
 
-my_label = ctk.CTkLabel(page_3, text='', font=('Helvetica',24))
+my_label = ctk.CTkLabel(biology_page, text='', font=('Helvetica',24))
 my_label.place(relx=.35,rely=.2)
 
 
-enter_button = ctk.CTkButton(page_3, text='Enter', command=submit2)
+enter_button = ctk.CTkButton(biology_page, text='Enter', command=submit2)
 enter_button.place (relx=.5,rely=.35)
 
 
 
-hint_button = ctk.CTkButton(page_3, text='Hint', command=hint2)
+hint_button = ctk.CTkButton(biology_page, text='Hint', command=hint2)
 hint_button.place (relx=.5,rely=.4)
 
-next_button = ctk.CTkButton(page_3, text='Next Question', command=next_question)
+next_button = ctk.CTkButton(biology_page, text='Next Question', command=next_question)
 next_button.place(relx=.5,rely=.45)
 
 
-hint_label = ctk.CTkLabel(page_3, text='', font=('Helvetica', 12))
+hint_label = ctk.CTkLabel(biology_page, text='', font=('Helvetica', 12))
 hint_label.place (relx=.5,rely=.25)
 
 
@@ -243,31 +224,68 @@ buttons2 = [next_button ,  enter_button, hint_button]
 
 
 #=====================================PAGE  3  END ========================================================================================================================
+#==========================PAGE $ START==================================================================================================================================================== 
+page_4= ctk.CTkFrame(main_frame ,width =1500, height =800)
+
+def resize_and_open_page():
+    
+    for p in pages:
+        p.pack_forget()
+
+    page_4.pack(pady=100)
+
+   
+    w = width_entry.get()
+    h = height_entry.get()
+    root.geometry(f'{w}x{h}')
+
+
+my_button = ctk.CTkButton(page_4, text='Resize', command=resize_and_open_page)
+
+width_label = ctk.CTkLabel(page_4,text='Width')
+width_label.place(relx=.5,rely=.1)
+width_entry=ctk. CTkEntry(page_4)
+width_entry.place(relx=.5,rely=.3)
+
+height_label = ctk.CTkLabel(page_4,text='Height')
+height_label.place(relx=.5,rely=.4)
+
+height_entry=ctk.CTkEntry(page_4)
+height_entry.place(relx=.5,rely=.45)
+
+warning_label= ctk.CTkLabel(page_4,text='Minimum w= 800, h=600' )
+warning_label.place(relx=.5, rely=.5)
 
 
 
-pages=[page_1, page_2, page_3, page_4]
+page_4.place(relx=.5,rely=.5)
+
+#=========================================PAGE 4 END ======================================================================================
+#=========================================SWITCH PAGES ===================================
+
+pages=[start_page, physics_page, biology_page, page_4]
 count=0
 
 def move_next_page():
     global count 
     if not count >len(pages)-2:
         for p in pages:
-            p.pack_forget()
+            p.pack_forget()#deletes page 
 
         count += 1
         page=pages[count]
-        page.pack(padx=50, pady=100)
+        page.pack(padx=50, pady=100)#displays  next page 
 
 def back_next_page():
     global count 
     if not count == 0:
-        for p in pages:
-            p.pack_forget()
+        for p in pages:     
+            p.pack_forget()#deletes page 
+
 
         count -= 1
         page=pages[count]
-        page.pack(padx=50, pady=100)
+        page.pack(padx=50, pady=100)# displays back page
 
 
 bottom_frame= ctk.CTkFrame(root)
@@ -282,11 +300,12 @@ buttons3= [next_btn,back_btn]
 
 bottom_frame.place(rely=.95, relx=0.45)
 #===========================================================Side   Page   ===================================================================
-Side_frame= ctk.CTkFrame(root)
+Settings_frame= ctk.CTkFrame(root)
 
 
 root.theme = {'fg_color': '#FF0', 'text_color': '#000'}
 
+#=============================================================Defining inclusive features ===============================================
 
 #===============change langauge =======================#
 
@@ -311,14 +330,14 @@ def switch_theme():
     current_theme_index = (current_theme_index + 1)
     current_theme_index = (current_theme_index + 1) % len(themes)
     theme = themes[current_theme_index]
-    page_1.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-    page_2.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-    page_3.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    start_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    physics_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    biology_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     page_4.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-    settings_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    main_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     bottom_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     root.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-    Side_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    Settings_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     
 
 #=====change font size========
@@ -356,8 +375,8 @@ def update_fonts():
 
     answer_label2.configure(font=('Helvetica', selected_font_size))
 
-    entry.configure(font=('Helvetica', selected_font_size))
-    entry2.configure(font=('Helvetica', selected_font_size))
+    biology_entry.configure(font=('Helvetica', selected_font_size))
+    physics_entry.configure(font=('Helvetica', selected_font_size))
     
 def toggle_language():
     global current_lang_index
@@ -394,15 +413,15 @@ def create_widgets():
     
 
     global buttons
-    change_button = ctk.CTkButton(Side_frame, text="Change Language", command=toggle_language)
+    change_button = ctk.CTkButton(Settings_frame, text="Change Language", command=toggle_language)
     change_button.grid(row=2, column=2)
-    button2 = ctk.CTkButton(Side_frame,  text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
+    button2 = ctk.CTkButton(Settings_frame,  text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
     button2.grid(row=2, column=1)
     
-    font_button = ctk.CTkButton( Side_frame, text="Increase Font Size", command=increase_font_size)
+    font_button = ctk.CTkButton( Settings_frame, text="Increase Font Size", command=increase_font_size)
     font_button.grid(row=2, column=0)
     
-    font_button = ctk.CTkButton( Side_frame, text="Resize ", command=resize_and_open_page)
+    font_button = ctk.CTkButton( Settings_frame, text="Resize ", command=resize_and_open_page)
     font_button.grid(row=2, column=3)
 
     buttons = [change_button, button2, font_button]
@@ -411,7 +430,7 @@ def create_widgets():
 
 create_widgets()
 
-Side_frame.place(rely=.9, relx=0.3)
+Settings_frame.place(rely=.9, relx=0.3)
 
 
 root.mainloop()
