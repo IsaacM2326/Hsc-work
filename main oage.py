@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from customtkinter import*
-from googletrans import Translator
 from random import randint
 
 root = ctk.CTk()
@@ -43,8 +42,6 @@ def resize_and_open_page():
 
 current_theme_index = 0
 current_lang_index = 0
-languages = ['en', 'es', 'de', 'hi','ar' ]  # Language codes: English, Spanish, German, Hindi, Arabic
-translator = Translator()
 
 
 
@@ -129,7 +126,6 @@ def next_question_physics():
     global current_question_index
     current_question_index = randint(0, count2 - 1)
     my_label1.configure(text=physics_questions[current_question_index][0])
-    my_label1.configure(text=translator.translate(physics_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
     hint_label1.configure(text='')
     quiz_label1.configure(text='')
