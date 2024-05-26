@@ -18,9 +18,9 @@ fonts = ['Helvetica', 'Arial', 'Times New Roman', 'Courier']
 selected_font = fonts[current_font_index]
 
 
-main_frame= ctk.CTkFrame (root,width =800, height=800, )
+main_frame= ctk.CTkFrame (root)
 main_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
-main_frame.place(rely=0, relx=0)
+main_frame.pack()
 
 
 current_font_index =0 
@@ -50,12 +50,12 @@ translator = Translator()
 
 
 start_page= ctk.CTkFrame(root)
-label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to debug ')
+label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to start ')
 label_main.pack()
-start_page.place(relx=0.5,rely=0)
+start_page.pack()
 
 #=========++=================PAGE @ SETUP ==========================================================================================================
-physics_page= ctk.CTkFrame(main_frame , width =1200, height =800)
+physics_page= ctk.CTkFrame(main_frame , width =1500, height =1000)
 
 
 
@@ -63,12 +63,12 @@ physics_page= ctk.CTkFrame(main_frame , width =1200, height =800)
 
 physics_questions = [
     ("How many laws of motion are there ", "3", 'less than 5 '),
-    ("How many planets in our solar system", "8"),
+    ("How many planets in our solar system", "8",'more than 7'),
     ("What is the push or pull on an object that can cause it to accelerate called?", "Force",),
     ("What is the unit of measure for force?", "Newton",'starts with N'),
     ("What is the sum of all forces acting on an object called?", "Net force", 'N--, F----'),
     ("What is the unit of measure for force?", "Newton",'starts with N'),
-    ("Newton's First Law of Motion is also called:", "Law of Inertia"),
+    ("Newton's First Law of Motion is also called:", "Law of Inertia",'Law of I--rt--'),
     ("Newton's first Law of Motion states that if there is no net force acting on an object it will:", " remain at rest",'re---- a- re--'),
     (" In the equation F = ma, what does m represent?", "Mass", 'M---'),
     ("How much net force is required to accelerate a 2000 kg car at 3.00 m/s2?", " 6000 N", '6---'),
@@ -132,7 +132,7 @@ def next_question_physics():
     my_label1.configure(text=physics_questions[current_question_index][0])
     my_label1.configure(text=translator.translate(physics_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
-    hint_label.configure(text='')
+    hint_label1.configure(text='')
     physics_entry.delete(0, ctk.END)
 
 # Buttons for page 2
@@ -145,14 +145,15 @@ hint_button.place (relx=.5,rely=.4)
 next_button = ctk.CTkButton(physics_page, text='Next Question', command=next_question_physics)
 next_button.place(relx=.5,rely=.45)
 
-
+quiz_label1 = ctk.CTkLabel(physics_page, text='Physics quiz ')
+quiz_label1.place (relx=.5,rely=.1)
 
 
 buttons1 = [next_button ,  enter_button, hint_button]
 
 
 #==========================PAGE 3======================================================================================
-biology_page= ctk.CTkFrame(main_frame ,width =1500, height =800)
+biology_page= ctk.CTkFrame(main_frame ,width =1500, height =1000)
 
 
 
@@ -164,12 +165,12 @@ biology_questions = [
     ("What is the powerhouse of the cell?", "Mitochondria",'Mi--------ia'),
     ("What is the process by which plants make their own food called?", "Photosynthesis",'Ph-----------s'),
     ("What are the tiny blood vessels where gas exchange occurs in the lungs called?", "Capillaries",'Ca---------'),
-    ("Which organ in the human body produces insulin?", "Pancreas"),
+    ("Which organ in the human body produces insulin?", "Pancreas",'Pa----as'),
     ("What is the function of white blood cells?", "Fight infections",'F---t inf-----ns'),
     ("What is the process of breaking down food into simpler substances called?", "Digestion",'Di------n'),
     ("What is the longest bone in the human body?", "Femur",'Fe---'),
     ("What is the function of the cerebellum?", "Movement",'Mo------'),
-    ("What is the main function of red blood cells?", "Transport oxygen ",'1','Tra------ ox----'),
+    ("What is the main function of red blood cells?", "Transport oxygen ",'Tra------ ox----'),
     ("What is the process of cell division called?", "Mitosis",'Mi-----'),
     ("What are the main components of the central nervous system?", "Brain and Spinal Cord",'Br--- and S----- C---'),
 ]
@@ -184,11 +185,11 @@ def submit2():
 
         # Case-insensitive comparison (optional)
         if answer.lower() == correct_answer.lower():
-            answer_label2.configure(text='Correct answer!')
+            quiz_label2.configure(text='Correct answer!')
         else:
-            answer_label2.configure(text=f'Incorrect answer! The correct answer is {correct_answer}')
+            quiz_label2.configure(text=f'Incorrect answer! The correct answer is {correct_answer}')
     else:
-        answer_label2.configure(text='No question to answer!')
+        quiz_label2.configure(text='No question to answer!')
 
 def hint2():
     if 0 <= current_question_index < count1:
@@ -209,8 +210,8 @@ def next_question_biology():
 
 #======================defining quiz commands ======================================   
 
-answer_label2 = ctk.CTkLabel(biology_page, text='Biology quiz ')
-answer_label2.place (relx=.4,rely=.1)
+quiz_label2 = ctk.CTkLabel(biology_page, text='Biology quiz ')
+quiz_label2.place (relx=.5,rely=.1)
 
 my_label = ctk.CTkLabel(biology_page, text='', font=('Helvetica',24))
 my_label.place(relx=.35,rely=.2)
@@ -371,6 +372,12 @@ def update_fonts():
     hint_label1.configure(font=(selected_font, selected_font_size))
     my_label.configure(font=(selected_font, selected_font_size))
     hint_label.configure(font=(selected_font, selected_font_size))
+    height_label.configure(font=(selected_font, selected_font_size))
+    width_label.configure(font=(selected_font, selected_font_size))
+    for button in buttons1:
+        button.configure(font=(selected_font, selected_font_size))
+    for button in buttons2:
+        button.configure(font=(selected_font, selected_font_size))
 
 
 
@@ -407,3 +414,5 @@ Settings_frame.place(rely=.9, relx=0.3)
 
 
 root.mainloop()
+
+
