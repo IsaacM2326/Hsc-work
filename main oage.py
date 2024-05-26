@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from customtkinter import*
-from googletrans import Translator
 from random import randint
 
 root = ctk.CTk()
@@ -42,7 +41,7 @@ def resize_and_open_page():
 
 
 current_theme_index = 0
-current_lang_index = 0
+
 
 
 
@@ -147,7 +146,7 @@ quiz_label1 = ctk.CTkLabel(physics_page, text='Physics quiz ')
 quiz_label1.place (relx=.5,rely=.1)
 
 
-buttons1 = [next_button ,  enter_button, hint_button]
+quiz_buttons_1 = [next_button ,  enter_button, hint_button]
 
 
 #==========================PAGE 3======================================================================================
@@ -230,14 +229,14 @@ hint_label = ctk.CTkLabel(biology_page, text='', font=('Helvetica', 12))
 hint_label.place (relx=.5,rely=.25)
 
 
-buttons2 = [next_button ,  enter_button, hint_button]
+quiz_buttons_2 = [next_button ,  enter_button, hint_button]
 
 
 #=====================================PAGE  3  END ========================================================================================================================
 #==========================PAGE $ START==================================================================================================================================================== 
 page_4= ctk.CTkFrame(main_frame ,width =1500, height =800)
 
-def resize_and_open_page():
+def resize_and_open_page():# gets inputs and adjusts page 
     
     for p in pages:
         p.pack_forget()
@@ -306,7 +305,7 @@ back_btn.pack(side=ctk.LEFT, padx=5, pady=10)
 next_btn= ctk.CTkButton(bottom_frame, text='Next Quiz ', font=('Helvetica', 12),width=8,command=move_next_page )
 next_btn.pack(side=ctk.BOTTOM, padx=10,pady=10)
 
-buttons3= [next_btn,back_btn]
+quiz_buttons_3= [next_btn,back_btn]
 
 bottom_frame.place(rely=.95, relx=0.45)
 #===========================================================Side   Page   ===================================================================
@@ -374,14 +373,14 @@ def update_fonts():
     warning_label.configure(font=(selected_font, selected_font_size))
     quiz_label1.configure(font=(selected_font, selected_font_size))
     quiz_label2.configure(font=(selected_font, selected_font_size))
-    for button in buttons1:
+    for button in quiz_buttons_1:
         button.configure(font=(selected_font, selected_font_size))
 
-    for button in buttons2:
+    for button in quiz_buttons_2:
         button.configure(font=(selected_font, selected_font_size))
-    for button in buttons:
+    for button in quiz_buttons_3:
         button.configure (font=(selected_font, selected_font_size))
-    for button in buttons3:
+    for button in setting_buttons:
         button.configure(font=(selected_font, selected_font_size))
         
 
@@ -389,7 +388,7 @@ def update_fonts():
 
 
 
-
+#=====================================================Creating Widgets  ==============================================================================================================================================
 
 
 def create_widgets():
@@ -398,7 +397,7 @@ def create_widgets():
     
     
 
-    global buttons
+    global setting_buttons
     change_button = ctk.CTkButton(Settings_frame, text="Change Style", command=change_font_style)
     change_button.grid(row=2, column=2)
     button2 = ctk.CTkButton(Settings_frame,  text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
@@ -410,7 +409,7 @@ def create_widgets():
     font_button = ctk.CTkButton( Settings_frame, text="Resize ", command=resize_and_open_page)
     font_button.grid(row=2, column=3)
 
-    buttons = [change_button, button2, font_button]
+    setting_buttons = [change_button, button2, font_button]
 
    
 
