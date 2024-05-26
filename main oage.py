@@ -10,13 +10,21 @@ root.state('zoomed')
 
 root.title('Quiz ')
 
+current_font_index = 0
+current_font_size_index = 0
+font_sizes = [12, 16, 20, 24]
+selected_font_size = font_sizes[current_font_size_index]
+fonts = ['Helvetica', 'Arial', 'Times New Roman', 'Courier']
+selected_font = fonts[current_font_index]
+
 
 main_frame= ctk.CTkFrame (root,width =800, height=800, )
 main_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
 main_frame.place(rely=0, relx=0)
 
 
-
+current_font_index =0 
+font_size=12
 
 def resize_and_open_page():
     
@@ -117,10 +125,12 @@ def hint1():
 
 
 
-def next_question():
+def next_question_physics():
+    lang_type= languages[current_lang_index]
     global current_question_index
     current_question_index = randint(0, count2 - 1)
     my_label1.configure(text=physics_questions[current_question_index][0])
+    my_label1.configure(text=translator.translate(physics_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
     hint_label.configure(text='')
     physics_entry.delete(0, ctk.END)
@@ -132,7 +142,7 @@ enter_button.place (relx=.5,rely=.35)
 hint_button = ctk.CTkButton(physics_page, text='Hint', command=hint1)
 hint_button.place (relx=.5,rely=.4)
 
-next_button = ctk.CTkButton(physics_page, text='Next Question', command=next_question)
+next_button = ctk.CTkButton(physics_page, text='Next Question', command=next_question_physics)
 next_button.place(relx=.5,rely=.45)
 
 
@@ -186,12 +196,14 @@ def hint2():
     else:
         hint_label.configure(text='No question to get a hint')
 
-def next_question():
+def next_question_biology():
+    lang_type = languages[current_lang_index]
     biology_entry.delete(0, ctk.END)  # Clear the entry widget's content
     global current_question_index
     global current_question_index
     current_question_index = randint(0, count1 - 1)
     my_label.configure(text=biology_questions[current_question_index][0])
+    my_label.configure(text=translator.translate(biology_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
     hint_label.configure(text='')
 
@@ -212,7 +224,7 @@ enter_button.place (relx=.5,rely=.35)
 hint_button = ctk.CTkButton(biology_page, text='Hint', command=hint2)
 hint_button.place (relx=.5,rely=.4)
 
-next_button = ctk.CTkButton(biology_page, text='Next Question', command=next_question)
+next_button = ctk.CTkButton(biology_page, text='Next Question', command=next_question_biology)
 next_button.place(relx=.5,rely=.45)
 
 
@@ -253,7 +265,7 @@ height_label.place(relx=.5,rely=.4)
 height_entry=ctk.CTkEntry(page_4)
 height_entry.place(relx=.5,rely=.45)
 
-warning_label= ctk.CTkLabel(page_4,text='Minimum w= 800, h=600' )
+warning_label= ctk.CTkLabel(page_4,text='Minimum w= 800, h=800' )
 warning_label.place(relx=.5, rely=.5)
 
 
@@ -307,7 +319,6 @@ root.theme = {'fg_color': '#FF0', 'text_color': '#000'}
 
 #=============================================================Defining inclusive features ===============================================
 
-#===============change langauge =======================#
 
 
 
@@ -341,67 +352,29 @@ def switch_theme():
     
 
 #=====change font size========
-current_font_size_index = 0
-
-font_sizes = [12, 16, 20, 24]
+# Font style and size change functionality
+def change_font_style():
+    global current_font_index, selected_font
+    current_font_index = (current_font_index + 1) % len(fonts)
+    selected_font = fonts[current_font_index]
+    update_fonts()
 
 def increase_font_size():
-    global current_font_size_index
+    global current_font_size_index, selected_font_size
     current_font_size_index = (current_font_size_index + 1) % len(font_sizes)
+    selected_font_size = font_sizes[current_font_size_index]
     update_fonts()
 
 def update_fonts():
-    selected_font_size = font_sizes[current_font_size_index]
-    
+    # Update the fonts in all labels
+    my_label1.configure(font=(selected_font, selected_font_size))
+    hint_label1.configure(font=(selected_font, selected_font_size))
+    my_label.configure(font=(selected_font, selected_font_size))
+    hint_label.configure(font=(selected_font, selected_font_size))
 
-    my_label.configure(font=('Helvetica', selected_font_size))
-    my_label1.configure(font=('Helvetica', selected_font_size))
-    answer_label.configure(font=('Helvetica', selected_font_size))
-    hint_label.configure(font=('Helvetica', selected_font_size))
-    
-    
-    label_main.configure(font=('Helvetica', selected_font_size))
-  
-    
-   
-    for button in buttons2:
-        button.configure(font=('Helvetica', selected_font_size))
-    for button in buttons1:
-        button.configure(font=('Helvetica', selected_font_size))
-    for button in buttons:
-        button.configure(font=('Helvetica', selected_font_size))
-    for button in buttons3:
-        button.configure(font=('Helvetica', selected_font_size))
 
-    answer_label2.configure(font=('Helvetica', selected_font_size))
 
-    biology_entry.configure(font=('Helvetica', selected_font_size))
-    physics_entry.configure(font=('Helvetica', selected_font_size))
-    
-def toggle_language():
-    global current_lang_index
-    current_lang_index = (current_lang_index + 1) % len(languages)
-    update_language()
 
-def update_language():
-    lang_type = languages[current_lang_index]
-    # Translate the text of labels and buttons
-    label_main.configure(text=translator.translate('Press Next Quiz to debug', dest=lang_type).text)
-    my_label1.configure(text=translator.translate('Question', dest=lang_type).text)
-    answer_label.configure(text=translator.translate('Biology quiz', dest=lang_type).text)
-    answer_label.configure(text=translator.translate('Biology quiz', dest=lang_type).text)
-
-    for button in buttons1:
-        button_text = button.cget("text")
-        translated_text = translator.translate(button_text, dest=lang_type).text
-        button.configure(text=translated_text)
-    for button in buttons2:
-        button_text = button.cget("text")
-        translated_text = translator.translate(button_text, dest=lang_type).text
-        button.configure(text=translated_text)
-    my_label_text= my_label.cget('text')
-    translated_text = translator.translate(my_label_text, dest=lang_type).text
-    my_label.configure(text=translated_text)
 
 
 
@@ -413,7 +386,7 @@ def create_widgets():
     
 
     global buttons
-    change_button = ctk.CTkButton(Settings_frame, text="Change Language", command=toggle_language)
+    change_button = ctk.CTkButton(Settings_frame, text="Change Style", command=change_font_style)
     change_button.grid(row=2, column=2)
     button2 = ctk.CTkButton(Settings_frame,  text='Change theme', fg_color=root.theme['fg_color'], text_color=root.theme['text_color'], command=switch_theme)
     button2.grid(row=2, column=1)
