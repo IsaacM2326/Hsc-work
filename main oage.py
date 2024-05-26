@@ -1,7 +1,8 @@
+#improting required libaries 
 import customtkinter as ctk
 from customtkinter import*
 from random import randint
-
+# setting root 
 root = ctk.CTk()
 root.minsize(800, 800)
 root.state('zoomed')
@@ -15,7 +16,7 @@ selected_font_size = font_sizes[current_font_size_index]
 fonts = ['Helvetica', 'Arial', 'Times New Roman', 'Courier']
 selected_font = fonts[current_font_index]
 
-
+# Whenre the quiz  pages will be connected to 
 main_frame= ctk.CTkFrame (root)
 main_frame.theme=  {'fg_color': '#FF0', 'text_color': '#000'}
 main_frame.pack()
@@ -24,25 +25,7 @@ main_frame.pack()
 current_font_index =0 
 font_size=12
 
-def resize_and_open_page():
-    
-    for p in pages:
-        p.pack_forget()
-
-    resize_page.pack(pady=100)
-
-   
-    w = width_entry.get()
-    h = height_entry.get()
-    root.geometry(f'{w}x{h}')
-
-
-
-
-
 current_theme_index = 0
-
-
 
 
 
@@ -257,7 +240,7 @@ height_label.place(relx=.5,rely=.4)
 
 height_entry=ctk.CTkEntry(resize_page)
 height_entry.place(relx=.5,rely=.45)
-
+#to set a limit in resizing so that gui maintains functionality 
 warning_label= ctk.CTkLabel(resize_page,text='Minimum w= 800, h=800' )
 warning_label.place(relx=.5, rely=.5)
 
@@ -371,7 +354,7 @@ def update_fonts():
     quiz_label2.configure(font=(selected_font, selected_font_size))
     for button in quiz_buttons_1:
         button.configure(font=(selected_font, selected_font_size))
-
+#changing buttons for each frame and quiz 
     for button in quiz_buttons_2:
         button.configure(font=(selected_font, selected_font_size))
     for button in quiz_buttons_3:
