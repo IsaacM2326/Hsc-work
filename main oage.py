@@ -330,7 +330,7 @@ root.theme = {'fg_color': '#FF0', 'text_color': '#000'}
 themes = [
     {'bg': 'black', 'fg': 'black', 'text': 'Dark Theme'},
     {'bg': 'silver', 'fg': 'silver', 'text': 'Dark Theme'},
-    {'bg': 'lightblue', 'fg': 'lightblue', 'text': 'eyestrain'},
+    {'bg': 'brown', 'fg': 'brown', 'text': 'eyestrain'},
     {'bg': 'grey', 'fg': 'grey', 'text': 'Cool 1 '},
     {'bg': 'orange', 'fg': 'orange', 'text': 'easy on the eyes '}
     
@@ -414,5 +414,3 @@ Settings_frame.place(rely=.9, relx=0.3)
 
 
 root.mainloop()
-
-
