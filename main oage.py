@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from customtkinter import*
+from googletrans import Translator
 from random import randint
 
 root = ctk.CTk()
@@ -42,6 +43,7 @@ def resize_and_open_page():
 
 current_theme_index = 0
 current_lang_index = 0
+
 
 
 
@@ -122,7 +124,7 @@ def hint1():
 
 
 def next_question_physics():
-    lang_type= languages[current_lang_index]
+   
     global current_question_index
     current_question_index = randint(0, count2 - 1)
     my_label1.configure(text=physics_questions[current_question_index][0])
@@ -194,13 +196,11 @@ def hint2():
         hint_label.configure(text='No question to get a hint')
 
 def next_question_biology():
-    lang_type = languages[current_lang_index]
     biology_entry.delete(0, ctk.END)  # Clear the entry widget's content
     global current_question_index
     global current_question_index
     current_question_index = randint(0, count1 - 1)
     my_label.configure(text=biology_questions[current_question_index][0])
-    my_label.configure(text=translator.translate(biology_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
     hint_label.configure(text='')
     quiz_label2.configure(text='')
@@ -380,7 +380,10 @@ def update_fonts():
     for button in buttons2:
         button.configure(font=(selected_font, selected_font_size))
     for button in buttons:
+        button.configure (font=(selected_font, selected_font_size))
+    for button in buttons3:
         button.configure(font=(selected_font, selected_font_size))
+        
 
 
 
