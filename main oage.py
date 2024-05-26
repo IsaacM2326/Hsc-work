@@ -4,7 +4,6 @@ from googletrans import Translator
 from random import randint
 
 root = ctk.CTk()
-root.geometry('800x800')
 root.minsize(800, 800)
 root.state('zoomed')
 
@@ -49,13 +48,13 @@ translator = Translator()
 
 
 
-start_page= ctk.CTkFrame(root)
+start_page= ctk.CTkFrame(main_frame)
 label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to start ')
 label_main.pack()
 start_page.pack()
 
 #=========++=================PAGE @ SETUP ==========================================================================================================
-physics_page= ctk.CTkFrame(main_frame , width =1500, height =1000)
+physics_page= ctk.CTkFrame(main_frame , width =2000, height =2000)
 
 
 
@@ -64,7 +63,7 @@ physics_page= ctk.CTkFrame(main_frame , width =1500, height =1000)
 physics_questions = [
     ("How many laws of motion are there ", "3", 'less than 5 '),
     ("How many planets in our solar system", "8",'more than 7'),
-    ("What is the push or pull on an object that can cause it to accelerate called?", "Force",),
+    ("What is the push or pull on an object that can cause it to accelerate called?", "Force",'F--ce'),
     ("What is the unit of measure for force?", "Newton",'starts with N'),
     ("What is the sum of all forces acting on an object called?", "Net force", 'N--, F----'),
     ("What is the unit of measure for force?", "Newton",'starts with N'),
@@ -133,6 +132,7 @@ def next_question_physics():
     my_label1.configure(text=translator.translate(physics_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
     hint_label1.configure(text='')
+    quiz_label1.configure(text='')
     physics_entry.delete(0, ctk.END)
 
 # Buttons for page 2
@@ -207,6 +207,7 @@ def next_question_biology():
     my_label.configure(text=translator.translate(biology_questions[current_question_index][0], dest=lang_type).text)
     answer_label.configure(text='')
     hint_label.configure(text='')
+    quiz_label2.configure(text='')
 
 #======================defining quiz commands ======================================   
 
@@ -374,9 +375,15 @@ def update_fonts():
     hint_label.configure(font=(selected_font, selected_font_size))
     height_label.configure(font=(selected_font, selected_font_size))
     width_label.configure(font=(selected_font, selected_font_size))
+    warning_label.configure(font=(selected_font, selected_font_size))
+    quiz_label1.configure(font=(selected_font, selected_font_size))
+    quiz_label2.configure(font=(selected_font, selected_font_size))
     for button in buttons1:
         button.configure(font=(selected_font, selected_font_size))
+
     for button in buttons2:
+        button.configure(font=(selected_font, selected_font_size))
+    for button in buttons:
         button.configure(font=(selected_font, selected_font_size))
 
 
