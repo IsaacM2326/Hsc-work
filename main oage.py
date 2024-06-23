@@ -1,3 +1,4 @@
+
 #improting required libaries 
 import customtkinter as ctk
 from customtkinter import*
@@ -213,91 +214,24 @@ quiz_buttons_2 = [next_button ,  enter_button, hint_button]
 
 #=====================================PAGE  3  END ========================================================================================================================
 #==========================PAGE $ START==================================================================================================================================================== 
-resize_page= ctk.CTkFrame(main_frame ,width =1500, height =800)
 
-def resize_and_open_page():# gets inputs and adjusts page 
-    
-    for p in pages:
-        p.pack_forget()
-
-    resize_page.pack(pady=100)
-
-   
-    w = width_entry.get()
-    h = height_entry.get()
-    root.geometry(f'{w}x{h}')
+settings_page= ctk.CTkFrame(main_frame ,width =1500, height =800)
 
 
-my_button = ctk.CTkButton(resize_page, text='Resize', command=resize_and_open_page)
 
-width_label = ctk.CTkLabel(resize_page,text='Width')
+
+
+width_label = ctk.CTkLabel(settings_page,text='Width')
 width_label.place(relx=.5,rely=.1)
-width_entry=ctk. CTkEntry(resize_page)
+width_entry=ctk. CTkEntry(settings_page)
 width_entry.place(relx=.5,rely=.3)
 
-height_label = ctk.CTkLabel(resize_page,text='Height')
+height_label = ctk.CTkLabel(settings_page,text='Height')
 height_label.place(relx=.5,rely=.4)
 
-height_entry=ctk.CTkEntry(resize_page)
+height_entry=ctk.CTkEntry(settings_page)
 height_entry.place(relx=.5,rely=.45)
 #to set a limit in resizing so that gui maintains functionality 
-warning_label= ctk.CTkLabel(resize_page,text='Minimum w= 800, h=800' )
-warning_label.place(relx=.5, rely=.5)
-
-
-
-resize_page.place(relx=.5,rely=.5)
-
-#=========================================PAGE 4 END ======================================================================================
-#=========================================SWITCH PAGES ===================================
-
-pages=[start_page, physics_page, biology_page, resize_page]
-count=0
-
-def move_next_page():
-    global count 
-    if not count >len(pages)-2:
-        for p in pages:
-            p.pack_forget()#deletes page 
-
-        count += 1
-        page=pages[count]
-        page.pack(padx=50, pady=100)#displays  next page 
-
-def back_next_page():
-    global count 
-    if not count == 0:
-        for p in pages:     
-            p.pack_forget()#deletes page 
-
-
-        count -= 1
-        page=pages[count]
-        page.pack(padx=50, pady=100)# displays back page
-
-
-bottom_frame= ctk.CTkFrame(root)
-
-back_btn = ctk.CTkButton(bottom_frame, text='Exit',font =('Helvetica', 12), width=8, command=back_next_page)
-back_btn.pack(side=ctk.LEFT, padx=5, pady=10)
-
-next_btn= ctk.CTkButton(bottom_frame, text='Next Quiz ', font=('Helvetica', 12),width=8,command=move_next_page )
-next_btn.pack(side=ctk.BOTTOM, padx=10,pady=10)
-
-quiz_buttons_3= [next_btn,back_btn]
-
-bottom_frame.place(rely=.95, relx=0.45)
-#===========================================================Side   Page   ===================================================================
-Settings_frame= ctk.CTkFrame(root)
-
-
-
-
-#=============================================================Defining inclusive features ===============================================
-
-
-
-
 
 
 
@@ -312,6 +246,7 @@ themes = [
 ]
 
 
+
 def switch_theme():
     global current_theme_index
     current_theme_index = (current_theme_index + 1)
@@ -320,11 +255,11 @@ def switch_theme():
     start_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     physics_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     biology_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-    resize_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+    settings_page.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     main_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     bottom_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
     root.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
-    Settings_frame.configure(bg_color=theme['bg'], fg_color=theme['fg'], )
+
     
 
 #=====change font size========
@@ -378,24 +313,79 @@ def create_widgets():
     
 
     global setting_buttons
-    change_button = ctk.CTkButton(Settings_frame, text="Change Style", command=change_font_style)
+    change_button = ctk.CTkButton(settings_page, text="Change Style", command=change_font_style)
     change_button.grid(row=2, column=2)
-    change_theme_button = ctk.CTkButton(Settings_frame,  text='Change theme',  command=switch_theme)
+    change_theme_button = ctk.CTkButton(settings_page,  text='Change theme',  command=switch_theme)
     change_theme_button.grid(row=2, column=1)
     
-    font_button = ctk.CTkButton( Settings_frame, text="Increase Font Size", command=increase_font_size)
+    font_button = ctk.CTkButton( settings_page, text="Increase Font Size", command=increase_font_size)
     font_button.grid(row=2, column=0)
     
-    font_button = ctk.CTkButton( Settings_frame, text="Resize ", command=resize_and_open_page)
-    font_button.grid(row=2, column=3)
+
 
     setting_buttons = [change_button, change_theme_button, font_button]
+
+
+
+settings_page.place(relx=.5,rely=2)
+
+#=========================================PAGE 4 END ======================================================================================
+#=========================================SWITCH PAGES ===================================
+
+pages=[start_page, physics_page, biology_page, settings_page]
+count=0
+
+def move_next_page():
+    global count 
+    if not count >len(pages)-2:
+        for p in pages:
+            p.pack_forget()#deletes page 
+
+        count += 1
+        page=pages[count]
+        page.pack(padx=50, pady=100)#displays  next page 
+
+def back_next_page():
+    global count 
+    if not count == 0:
+        for p in pages:     
+            p.pack_forget()#deletes page 
+
+
+        count -= 1
+        page=pages[count]
+        page.pack(padx=50, pady=100)# displays back page
+
+def settings_page1():
+        
+    for p in pages:
+        p.pack_forget()
+
+    settings_page.pack(pady=100)
+
+bottom_frame= ctk.CTkFrame(root,width=1000,height =400)
+
+back_btn = ctk.CTkButton(bottom_frame, text='Exit',font =('Helvetica', 12), width=8, command=back_next_page)
+back_btn.grid(row=2, column=1)
+
+next_btn= ctk.CTkButton(bottom_frame, text='Next Quiz ', font=('Helvetica', 12),width=8,command=move_next_page )
+next_btn.grid(row=2, column=2)
+
+settings_button=ctk.CTkButton(bottom_frame, text='Settings', font=('Helvetica',12),width=8, command=settings_page1)
+settings_button.grid(row=2, column=3)
+quiz_buttons_3= [next_btn,back_btn]
+
+bottom_frame.place(rely=.9, relx=0.45)
+#===========================================================Side   Page   ===================================================================
+
+
 
    
 
 create_widgets()
 
-Settings_frame.place(rely=.9, relx=0.3)
+
 
 
 root.mainloop()
+
