@@ -192,7 +192,7 @@ def next_question_biology():
 quiz_label2 = ctk.CTkLabel(biology_page, text=' ')
 quiz_label2.place (relx=.4,rely=.1)
 
-biology_label = ctk.CTkLabel(biology_page, text='', font=('Helvetica',24))
+biology_label = ctk.CTkLabel(biology_page, text='Question', font=('Helvetica',24))
 biology_label.place(relx=.35,rely=.2)
 
 biology_main_label = ctk.CTkLabel(biology_page, text='Biology', font=('Helvetica', 20))
@@ -392,6 +392,10 @@ bottom_frame.place(rely=.9, relx=0.45)
 
 create_widgets()
 
+
+
+
+root.mainloop()
 
 
 
