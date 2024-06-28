@@ -30,10 +30,12 @@ current_theme_index = 0
 
 
 
-start_page= ctk.CTkFrame(main_frame)
-label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to start ')
+start_page= ctk.CTkFrame(main_frame, width =2000, height =2000)
+label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to start ',font=('Courier', 16))
 label_main.pack()
-start_page.pack()
+label_main2=ctk.CTkLabel(start_page,text='Warning: Quiz is uppercase senistive ',font=('Courier', 12))
+label_main2.pack()
+start_page.pack(fill='both',expand=1)
 
 #=========++=================PAGE @ SETUP ==========================================================================================================
 physics_page= ctk.CTkFrame(main_frame , width =2000, height =2000)
@@ -46,14 +48,14 @@ physics_questions = [
     ("How many laws of motion are there ", "3", 'less than 5 '),
     ("How many planets in our solar system", "8",'more than 7'),
     ("What is the push or pull on an object that can cause it to accelerate called?", "Force",'F--ce'),
-    ("What is the unit of measure for force?", "Newton",'starts with N'),
-    ("What is the sum of all forces acting on an object called?", "Net force", 'N--, F----'),
-    ("Is light faster than sound  ?", "Yes ",'yes or no '),
+    ("What is the unit of measure for force?", "Newton",' N----n'),
+    ("What is the sum of all forces acting on an object called?", "Net force", 'N--, F---e'),
+    ("Is light faster than sound  ?", "Yes",'yes or no '),
     ("Newton's First Law of Motion is also called:", "Law of Inertia",'Law of I--rt--'),
     ("Newton's first Law of Motion states that if there is no net force acting on an object it will:", " remain at rest",'re---- a- re--'),
     (" In the equation F = ma, what does m represent?", "Mass", 'M---'),
-    ("How much net force is required to accelerate a 2000 kg car at 3.00 m/s2?", " 6000 N", '6---'),
-    ("If you apply a net force of 3 N on 100 g-box, what is the acceleration of the box?", "30 m/s2",'3-m/s2"'),
+    ("How much net force is required to accelerate a 2000 kg car at 3.00 m/s2?", " 6000N", '6--0N'),
+    ("If you apply a net force of 3 N on 100 g-box, what is the acceleration of the box?", "30m/s2",'3-m/s2"'),
     ("Are mass and weight the same?", "No", 'Yes/No')
 ]
 
@@ -65,11 +67,14 @@ current_question_index = 0
 physics_entry = ctk.CTkEntry(physics_page, width=300)
 physics_entry.place (relx=.45,rely=.3)
 
+physics_main_label = ctk.CTkLabel(physics_page, text='Physics', font=('Helvetica', 20))
+physics_main_label.place (relx=.5,rely=0)
+
 answer_label = ctk.CTkLabel(physics_page, text='', font=('Helvetica', 12))
 answer_label.place (relx=.5,rely=.1)
 
 physics_label = ctk.CTkLabel(physics_page, text='Question', font=('Helvetica', 24))
-physics_label.place (relx=.2,rely=.2)
+physics_label.place (relx=.3,rely=.2)
 
 hint_label1 = ctk.CTkLabel(physics_page, text='', font=('Helvetica', 12))
 hint_label1.place (relx=.5,rely=.25)
@@ -108,7 +113,6 @@ def next_question_physics():
     physics_label.configure(text=physics_questions[current_question_index][0])
     answer_label.configure(text='')
     hint_label1.configure(text='')
-    quiz_label1.configure(text='')
     physics_entry.delete(0, ctk.END)
 
 # Buttons for page 2
@@ -121,8 +125,7 @@ hint_button.place (relx=.5,rely=.4)
 next_button = ctk.CTkButton(physics_page, text='Next Question', command=next_question_physics)
 next_button.place(relx=.5,rely=.45)
 
-quiz_label1 = ctk.CTkLabel(physics_page, text='Physics quiz ')
-quiz_label1.place (relx=.5,rely=.1)
+
 
 
 quiz_buttons_1 = [next_button ,  enter_button, hint_button]
@@ -186,11 +189,15 @@ def next_question_biology():
 
 #======================defining quiz commands ======================================   
 
-quiz_label2 = ctk.CTkLabel(biology_page, text='Biology quiz ')
-quiz_label2.place (relx=.5,rely=.1)
+quiz_label2 = ctk.CTkLabel(biology_page, text=' ')
+quiz_label2.place (relx=.4,rely=.1)
 
 biology_label = ctk.CTkLabel(biology_page, text='', font=('Helvetica',24))
 biology_label.place(relx=.35,rely=.2)
+
+biology_main_label = ctk.CTkLabel(biology_page, text='Biology', font=('Helvetica', 20))
+biology_main_label.place (relx=.5,rely=0)
+
 
 
 enter_button = ctk.CTkButton(biology_page, text='Enter', command=biology_submit)
@@ -282,10 +289,11 @@ def update_fonts():
     hint_label1.configure(font=(selected_font, selected_font_size))
     biology_label.configure(font=(selected_font, selected_font_size))
     hint_label.configure(font=(selected_font, selected_font_size))
-    height_label.configure(font=(selected_font, selected_font_size))
-    width_label.configure(font=(selected_font, selected_font_size))
-    warning_label.configure(font=(selected_font, selected_font_size))
-    quiz_label1.configure(font=(selected_font, selected_font_size))
+    answer_label.configure(font=(selected_font, selected_font_size))
+    physics_main_label.configure(font=(selected_font, selected_font_size))
+    label_main.configure(font=(selected_font, selected_font_size))
+    label_main2.configure(font=(selected_font, selected_font_size))
+    biology_main_label.configure(font=(selected_font, selected_font_size))
     quiz_label2.configure(font=(selected_font, selected_font_size))
     for button in quiz_buttons_1:
         button.configure(font=(selected_font, selected_font_size))
@@ -313,7 +321,7 @@ def create_widgets():
     
 
     global setting_buttons
-    change_button = ctk.CTkButton(settings_page, text="Change Style", command=change_font_style)
+    change_button = ctk.CTkButton(settings_page, text="Change Font ", command=change_font_style)
     change_button.grid(row=2, column=2)
     change_theme_button = ctk.CTkButton(settings_page,  text='Change theme',  command=switch_theme)
     change_theme_button.grid(row=2, column=1)
@@ -343,7 +351,7 @@ def move_next_page():
 
         count += 1
         page=pages[count]
-        page.pack(padx=50, pady=100)#displays  next page 
+        page.pack()#displays  next page 
 
 def back_next_page():
     global count 
@@ -354,26 +362,26 @@ def back_next_page():
 
         count -= 1
         page=pages[count]
-        page.pack(padx=50, pady=100)# displays back page
+        page.pack()# displays back page
 
 def settings_page1():
         
     for p in pages:
         p.pack_forget()
 
-    settings_page.pack(pady=100)
+    settings_page.pack()
 
 bottom_frame= ctk.CTkFrame(root,width=1000,height =400)
 
-back_btn = ctk.CTkButton(bottom_frame, text='Exit',font =('Helvetica', 12), width=8, command=back_next_page)
+back_btn = ctk.CTkButton(bottom_frame, text='Exit',font =('Helvetica', 12), width=80, command=back_next_page)
 back_btn.grid(row=2, column=1)
 
-next_btn= ctk.CTkButton(bottom_frame, text='Next Quiz ', font=('Helvetica', 12),width=8,command=move_next_page )
+next_btn= ctk.CTkButton(bottom_frame, text='Next Quiz ', font=('Helvetica', 12),width=80,command=move_next_page )
 next_btn.grid(row=2, column=2)
 
-settings_button=ctk.CTkButton(bottom_frame, text='Settings', font=('Helvetica',12),width=8, command=settings_page1)
+settings_button=ctk.CTkButton(bottom_frame, text='Settings', font=('Helvetica',12),width=80, command=settings_page1)
 settings_button.grid(row=2, column=3)
-quiz_buttons_3= [next_btn,back_btn]
+quiz_buttons_3= [next_btn,back_btn,settings_button]
 
 bottom_frame.place(rely=.9, relx=0.45)
 #===========================================================Side   Page   ===================================================================
