@@ -52,9 +52,9 @@ physics_questions = [
     ("What is the sum of all forces acting on an object called?", "Net force", 'N--, F---e'),
     ("Is light faster than sound  ?", "Yes",'yes or no '),
     ("Newton's First Law of Motion is also called:", "Law of Inertia",'Law of I--rt--'),
-    ("Newton's first Law of Motion states that if there is no net force acting on an object it will:", " remain at rest",'re---- a- re--'),
+    ("Newton's first Law of Motion states that if there is no net force acting on an object it will remain at :", "rest",'re--'),
     (" In the equation F = ma, what does m represent?", "Mass", 'M---'),
-    ("How much net force is required to accelerate a 2000 kg car at 3.00 m/s2?", " 6000N", '6--0N'),
+    ("Is Gravity a force ?", " Yes", 'Y-s'),
     ("If you apply a net force of 3 N on 100 g-box, what is the acceleration of the box?", "30m/s2",'3-m/s2"'),
     ("Are mass and weight the same?", "No", 'Yes/No')
 ]
@@ -149,7 +149,7 @@ biology_questions = [
     ("What is the process of breaking down food into simpler substances called?", "Digestion",'Di------n'),
     ("What is the longest bone in the human body?", "Femur",'Fe---'),
     ("What is the function of the cerebellum?", "Movement",'Mo------'),
-    ("What is the main function of red blood cells?", "Transport oxygen ",'Tra------ ox----'),
+    ("What is the main function of red blood cells?", "Transport oxygen",'Tra------ ox----'),
     ("What is the process of cell division called?", "Mitosis",'Mi-----'),
     ("What are the main components of the central nervous system?", "Brain and Spinal Cord",'Br--- and S----- C---'),
 ]
@@ -396,6 +396,7 @@ create_widgets()
 
 
 root.mainloop()
+
 
 
 
