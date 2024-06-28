@@ -33,7 +33,7 @@ current_theme_index = 0
 start_page= ctk.CTkFrame(main_frame, width =2000, height =2000)
 label_main=ctk.CTkLabel(start_page,text='Press Next Quiz to start ',font=('Courier', 16))
 label_main.pack()
-label_main2=ctk.CTkLabel(start_page,text='Warning: Quiz is uppercase senistive ',font=('Courier', 12))
+label_main2=ctk.CTkLabel(start_page,text='Warning: Quiz is uppercase & space senistive ',font=('Courier', 12))
 label_main2.pack()
 start_page.pack(fill='both',expand=1)
 
