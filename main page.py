@@ -45,7 +45,7 @@ physics_page= ctk.CTkFrame(main_frame , width =2000, height =2000)
 
 
 physics_questions = [
-    ("How many laws of motion are there ", "3", 'less than 5 '),
+    ("How many laws of motion are there ", "3", 'less than 5'),
     ("How many planets in our solar system", "8",'more than 7'),
     ("What is the push or pull on an object that can cause it to accelerate called?", "Force",'F--ce'),
     ("What is the unit of measure for force?", "Newton",' N----n'),
@@ -54,7 +54,7 @@ physics_questions = [
     ("Newton's First Law of Motion is also called:", "Law of Inertia",'Law of I--rt--'),
     ("Newton's first Law of Motion states that if there is no net force acting on an object it will remain at :", "rest",'re--'),
     (" In the equation F = ma, what does m represent?", "Mass", 'M---'),
-    ("Is Gravity a force ?", " Yes", 'Y-s'),
+    ("Is Gravity a force ?", "Yes", 'Y-s'),
     ("If you apply a net force of 3 N on 100 g-box, what is the acceleration of the box?", "30m/s2",'3-m/s2"'),
     ("Are mass and weight the same?", "No", 'Yes/No')
 ]
